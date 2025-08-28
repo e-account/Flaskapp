@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <div class="container">
+        {% block body %}
+        {% if log == True %}
+        <h1>Ticket:</h1>
+        <p>Type of ticket: {{ ticketed.type }}</p>
+        <p>Ticket Name: {{ ticketed.tickname }}</p>
+        <p>Reason: {{ ticketed.reason }}</p>
+        <p>Approved: {{ ticketed.allowed }}</p>
+        <div>
+            <h1>Delete Ticket?</h1>
+            <div style="text-align: center; margin-top: 20px;">{{ wtf.quick_form(form2) }}</div>
+        </div>
+        {% endif %}
+        {% if adlog == True %}
+        <h1>Ticket:</h1>
+        <p>User: {{ticketed.userkey}}</p>
+        <p>Type of ticket: {{ ticketed.type }}</p>
+        <p>Ticket Name: {{ ticketed.tickname }}</p>
+        <p>Reason: {{ ticketed.reason }}</p>
+        <p>Approved: {{ ticketed.allowed }}</p>
+        <div>
+            <h1>Approve Ticket?</h1>
+            <div style="text-align: center; margin-top: 20px;">{{ wtf.quick_form(form1) }}</div>
+        </div>
+        <div>
+            <h1>Delete Ticket?</h1>
+            <div style="text-align: center; margin-top: 20px;">{{ wtf.quick_form(form2) }}</div>
+        </div>
+        {% endif %}
+        {% endblock %}
+    </div>
+</body>
+</html>

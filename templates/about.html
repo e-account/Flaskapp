@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    {% block body %}
+    <div class="about-container">
+        <h1>This is my about section for this web application</h1>
+        <br>
+        <p>
+            This is a helpdesk ticketing application built within PyCharm using a variety of lightweight frameworks
+            (Flask, Jinja2, Werkzeug, SQLAlchemy and Bootstrap). The application is a helpdesk ticketing solution that
+            allows for all major CRUD operations for both User and Admin accounts, this includes users creating and viewing
+            new tickets, creating new accounts, deleting tickets, and admin accounts can view all users, tickets and
+            delete both accounts and tickets.
+        </p>
+        <br>
+        <p>
+            For further information on the program, it can be found within the readme.txt on Github or within the application file.
+        </p>
+    </div>
+    {% endblock %}
+</body>
+</html>

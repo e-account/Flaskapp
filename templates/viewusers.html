@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <div class="container">
+        {% block body %}
+        <h1>User:</h1>
+        <p>Username: {{ used.username }}</p>
+        <p>Password: {{ used.password }}</p>
+        <p>Forename: {{ used.forename }}</p>
+        <p>Surname: {{ used.surname }}</p>
+        <div>
+            <h1>Edit User?</h1>
+            <div style="text-align: center; margin-top: 20px;">{{ wtf.quick_form(form1) }}</div>
+        </div>
+        <div>
+            <h1>Delete User?</h1>
+            <div style="text-align: center; margin-top: 20px;">{{ wtf.quick_form(form2) }}</div>
+        </div>
+        {% endblock %}
+    </div>
+</body>
+</html>
