@@ -24,6 +24,8 @@ housed within its own section of the app.py file.
 
 Heroku hosting has been set up using the Heroku CLI and gunicorn to help push the flaskapp through Github to Heroku.
 
+Hosted website available here: https://flaskapp-deployment-084e8a3a3c3a.herokuapp.com/
+
 extra notes:
 
 The program was developed within PyCharm Community Edition 2025.2 x64
