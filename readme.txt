@@ -22,7 +22,7 @@ Basic readable naming conventions were used and help the code stay readable and 
 allow the application to notify the user of any major actions taking place and all major components of the program are
 housed within its own section of the app.py file.
 
-
+Heroku hosting has been set up using the Heroku CLI and gunicorn to help push the flaskapp through Github to Heroku.
 
 extra notes:
 
