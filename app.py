@@ -8,7 +8,7 @@ from flask_bootstrap import Bootstrap
 # flask wtf and wtforms act as a more efficient way of producing flask forms with better functioning validations
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField, SelectField
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import DataRequired, Length, Regexp
 # sqlalchemy is a lightweight sqlite database that skips the difficulties of hosting a database via the web
 from flask_sqlalchemy import SQLAlchemy
 # main flask app constructors
@@ -36,19 +36,25 @@ class MainMenu(FlaskForm):
 
 # constructor class to create Signup class
 class Signup(FlaskForm):
-    # each object has the validator that requires all user inputs for the form to be submitted
-    username = StringField('Input Username:', validators=[DataRequired(), Length(min=5, max=128)])
-    password = StringField('Input Password:', validators=[DataRequired(), Length(min=5, max=128)])
-    forename = StringField('Input Forename:', validators=[DataRequired(), Length(min=2, max=128)])
-    surname = StringField('Input Surname:', validators=[DataRequired(), Length(min=2, max=128)])
+    # each object has the validator that requires all user inputs for the form to be submitted, with an updated regexp to prevent specific character inputs
+    username = StringField('Input Username:', validators=[DataRequired(), Length(min=5, max=128),
+        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+    password = StringField('Input Password:', validators=[DataRequired(), Length(min=5, max=128),
+        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+    forename = StringField('Input Forename:', validators=[DataRequired(), Length(min=2, max=128),
+        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+    surname = StringField('Input Surname:', validators=[DataRequired(), Length(min=2, max=128),
+        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
     submit = SubmitField('Submit')
 
 
 # constructor class to create Signup class
 class Login(FlaskForm):
-    # each object has the validator that requires all user inputs for the form to be submitted
-    username = StringField('Input Username:', validators=[DataRequired(), Length(min=5, max=128)])
-    password = StringField('Input Password:', validators=[DataRequired(), Length(min=5, max=128)])
+    # each object has the validator that requires all user inputs for the form to be submitted, with an updated regexp to prevent specific character inputs
+    username = StringField('Input Username:', validators=[DataRequired(), Length(min=5, max=128),
+        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+    password = StringField('Input Password:', validators=[DataRequired(), Length(min=5, max=128),
+        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
     submit = SubmitField('Submit')
 
 
@@ -66,11 +72,12 @@ class AdminMenu(FlaskForm):
     logout = SubmitField('Log Out')
 
 
-# constructor class to create Ticket Creation class
+# constructor class to create Ticket Creation class, with an updated regexp to prevent specific character inputs
 class HelpTicket(FlaskForm):
     type = SelectField('Vendor Selection:', choices=[('software', 'software'),
                                                      ('hardware', 'hardware'), ('error', 'error')], default='software')
-    tickname = StringField('Title of Request:', validators=[DataRequired(), Length(min=2, max=128)])
+    tickname = StringField('Title of Request:', validators=[DataRequired(), Length(min=2, max=128),
+        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
     reason = TextAreaField('Explanation of Request:', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
@@ -85,12 +92,16 @@ class DeleteTicket(FlaskForm):
     delete = SubmitField('Submit')
 
 
-# constructor class to create User Edit class
+# constructor class to create User Edit class, with an updated regexp to prevent specific character inputs
 class EditUser(FlaskForm):
-    username = StringField('Change Username:', validators=[DataRequired(), Length(min=5, max=128)])
-    password = StringField('Change Password:', validators=[DataRequired(), Length(min=5, max=128)])
-    forename = StringField('Change Forename:', validators=[DataRequired(), Length(min=2, max=128)])
-    surname = StringField('Change Surname:', validators=[DataRequired(), Length(min=2, max=128)])
+    username = StringField('Change Username:', validators=[DataRequired(), Length(min=5, max=128),
+        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+    password = StringField('Change Password:', validators=[DataRequired(), Length(min=5, max=128),
+        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+    forename = StringField('Change Forename:', validators=[DataRequired(), Length(min=2, max=128),
+        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+    surname = StringField('Change Surname:', validators=[DataRequired(), Length(min=2, max=128),
+        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
     submit = SubmitField('Submit')
 
 
