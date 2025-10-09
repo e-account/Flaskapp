@@ -11,15 +11,21 @@ from wtforms import StringField, SubmitField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Length, Regexp
 # sqlalchemy is a lightweight sqlite database that skips the difficulties of hosting a database via the web
 from flask_sqlalchemy import SQLAlchemy
+# dotenv is a library used to help remove sensitive variables from the main code and place them inside a .env file
+from dotenv import load_dotenv
+# loading environment variables from the .env file
+load_dotenv()
 # main flask app constructors
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
 basedir = os.path.abspath(os.path.dirname(__file__))
 # CSRF secret key of random characters for security purposes
-app.config['SECRET_KEY'] = 'lh03TMfKhCJns1uukSWuTqh'
+app.config['SECRET_KEY'] = os.getenv('SECRET-KEY')
 # sqlalchemy database pathway configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db.sqlite')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, os.getenv('DATABASE'))
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = os.getenv('SQL-TRACK-MOD')
+# debug variable held within .env file
+Debug = os.getenv('DEBUG')
 # database object constructor
 db = SQLAlchemy(app)
 # Object to hold the current logged in user and checks whether the user is actively logged on
@@ -38,13 +44,13 @@ class MainMenu(FlaskForm):
 class Signup(FlaskForm):
     # each object has the validator that requires all user inputs for the form to be submitted, with an updated regexp to prevent specific character inputs
     username = StringField('Input Username:', validators=[DataRequired(), Length(min=5, max=128),
-        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+        Regexp('^[a-zA-Z0-9 -_]+$', message='Input field can only contain alphanumeric characters, dashes and underscores')])
     password = StringField('Input Password:', validators=[DataRequired(), Length(min=5, max=128),
-        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+        Regexp('^[a-zA-Z0-9 -_]+$', message='Input field can only contain alphanumeric characters, dashes and underscores')])
     forename = StringField('Input Forename:', validators=[DataRequired(), Length(min=2, max=128),
-        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+        Regexp('^[a-zA-Z0-9 -_]+$', message='Input field can only contain alphanumeric characters, dashes and underscores')])
     surname = StringField('Input Surname:', validators=[DataRequired(), Length(min=2, max=128),
-        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+        Regexp('^[a-zA-Z0-9 -_]+$', message='Input field can only contain alphanumeric characters, dashes and underscores')])
     submit = SubmitField('Submit')
 
 
@@ -52,9 +58,9 @@ class Signup(FlaskForm):
 class Login(FlaskForm):
     # each object has the validator that requires all user inputs for the form to be submitted, with an updated regexp to prevent specific character inputs
     username = StringField('Input Username:', validators=[DataRequired(), Length(min=5, max=128),
-        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+        Regexp('^[a-zA-Z0-9 -_]+$', message='Input field can only contain alphanumeric characters, dashes and underscores')])
     password = StringField('Input Password:', validators=[DataRequired(), Length(min=5, max=128),
-        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+        Regexp('^[a-zA-Z0-9 -_]+$', message='Input field can only contain alphanumeric characters, dashes and underscores')])
     submit = SubmitField('Submit')
 
 
@@ -77,7 +83,7 @@ class HelpTicket(FlaskForm):
     type = SelectField('Vendor Selection:', choices=[('software', 'software'),
                                                      ('hardware', 'hardware'), ('error', 'error')], default='software')
     tickname = StringField('Title of Request:', validators=[DataRequired(), Length(min=2, max=128),
-        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+        Regexp('^[a-zA-Z0-9 -_]+$', message='Input field can only contain alphanumeric characters, dashes and underscores')])
     reason = TextAreaField('Explanation of Request:', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
@@ -95,13 +101,13 @@ class DeleteTicket(FlaskForm):
 # constructor class to create User Edit class, with an updated regexp to prevent specific character inputs
 class EditUser(FlaskForm):
     username = StringField('Change Username:', validators=[DataRequired(), Length(min=5, max=128),
-        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+        Regexp('^[a-zA-Z0-9 -_]+$', message='Input field can only contain alphanumeric characters, dashes and underscores')])
     password = StringField('Change Password:', validators=[DataRequired(), Length(min=5, max=128),
-        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+        Regexp('^[a-zA-Z0-9 -_]+$', message='Input field can only contain alphanumeric characters, dashes and underscores')])
     forename = StringField('Change Forename:', validators=[DataRequired(), Length(min=2, max=128),
-        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+        Regexp('^[a-zA-Z0-9 -_]+$', message='Input field can only contain alphanumeric characters, dashes and underscores')])
     surname = StringField('Change Surname:', validators=[DataRequired(), Length(min=2, max=128),
-        Regexp('^(?=.*[+!@#$/%^&*.,\ ?])', message='Input field can only contain alphanumeric characters, dashes and underscores')])
+        Regexp('^[a-zA-Z0-9 -_]+$', message='Input field can only contain alphanumeric characters, dashes and underscores')])
     submit = SubmitField('Submit')
 
 
@@ -434,4 +440,4 @@ def about():
 
 # command that runs application in debug mode
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=Debug)
