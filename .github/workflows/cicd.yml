@@ -32,13 +32,13 @@ jobs:
         python3.13 -m venv env
         source env/bin/activate
         pip install -r requirements.txt
-        pip install ruff
 
     # running the python linter ruff to check for and fix any issues with syntax or unused variables
     - name: python linter
-      run: |
-        ruff check .
-        ruff fix .
+      uses: astral-sh/ruff-action@v3
+      with:
+        version: "latest"
+        args: "format --diff"
 
     # deployment command that runs the application in the background through "nohup"
     - name: python deployment
