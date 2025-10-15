@@ -1,0 +1,48 @@
+# name of the .yaml file
+name: cicd pipeline
+
+# workflow will be triggered when there is a push to main branch
+on:
+  push:
+    branches:
+    - main
+# allows you to manually run a workflow from the actions tab, not just requiring a push to branch for it to run
+  workflow_dispatch:
+
+# github hosted runner server on the latest patch of the github ubuntu server for the cicd pipeline
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # checking out the workflow preventing the github from cloning the repository
+    - name: checkout
+      uses: actions/checkout@v4
+
+    # sets up the python version that was used to program the flaskapp
+    - name: python ver
+      uses: actions/setup-python@v2
+      with:
+        python version: '3.13'
+
+    # sets up the dependencies and the .venv to then run the code on, also installing the py-linter ruff to check the code from any syntax errors or faults
+    - name: python dependencies
+      run: | 
+        python -m pip install --upgrade pip
+        python3.13 -m venv env
+        source env/bin/activate
+        pip install -r requirements.txt
+        pip install ruff
+
+    # running the python linter ruff to check for and fix any issues with syntax or unused variables
+    - name: python linter
+      run: |
+        ruff check .
+        ruff fix .
+
+    # deployment command that runs the application in the background through "nohup"
+    - name: python deployment
+      run: |
+        nohup python3 app.py &
+        
+    
