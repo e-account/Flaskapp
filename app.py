@@ -2,7 +2,7 @@
 import os
 # creates an instance of the classes listed below:
 # flask is the main web interface building extension that includes myriad functions with other py extensions
-from flask import *
+from flask import Flask, redirect, flash, render_template, redirect, url_for, request
 # a flask extension that helps with html
 from flask_bootstrap import Bootstrap
 # flask wtf and wtforms act as a more efficient way of producing flask forms with better functioning validations
