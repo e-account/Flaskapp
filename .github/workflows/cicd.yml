@@ -35,9 +35,9 @@ jobs:
 
     # running the python linter ruff to check for and fix any issues with syntax or unused variables
     - name: python linter
-    - uses: astral-sh/ruff-action@v3
-    - run: ruff check --fix
-      
+      uses: astral-sh/ruff-action@v3
+      with:
+        args: "check --fix"
 
     # deployment command that runs the application in the background through "nohup"
     - name: python deployment
