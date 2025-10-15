@@ -23,7 +23,7 @@ jobs:
     - name: python ver
       uses: actions/setup-python@v2
       with:
-        python version: '3.13'
+        python-version: '3.13'
 
     # sets up the dependencies and the .venv to then run the code on, also installing the py-linter ruff to check the code from any syntax errors or faults
     - name: python dependencies
