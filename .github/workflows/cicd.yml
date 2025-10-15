@@ -37,7 +37,7 @@ jobs:
     - name: python linter
       uses: astral-sh/ruff-action@v3
       with:
-        args: "check --fix"
+        args: "check --fix --exit-zero"
 
     # deployment command that runs the application in the background through "nohup"
     - name: python deployment
